@@ -3,25 +3,114 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: url('BOAScreen.jpg') center center / cover no-repeat fixed,
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+    padding: 0;
+    position: relative;
+}
+
+/* Subtle dim overlay so the chat panel stays readable on any background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Chat container floats in the bottom-right corner */
+.chat-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10;
+    width: 380px;
+    height: 600px;
+    max-height: calc(100vh - 48px);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.chat-container.hidden {
+    transform: scale(0.1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Floating launcher avatar (bottom-right when chat is closed) */
+.launcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    padding: 8px;
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.25s;
+    display: none; /* shown via JS when chat is minimized */
+}
+
+.launcher.visible {
+    display: block;
+    animation: launcher-in 0.3s ease;
+}
+
+.launcher:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes launcher-in {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+/* Minimize button in header */
+.minimize-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    margin-left: 6px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+.minimize-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .chat-container {
-    width: 100%;
-    max-width: 480px;
-    height: 80vh;
-    max-height: 700px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+@media (max-width: 480px) {
+    .chat-container {
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
 }
 
 .chat-header {

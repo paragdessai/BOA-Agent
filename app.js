@@ -42,6 +42,26 @@ const transcriptEl = document.getElementById("transcript");
 const chatForm = document.getElementById("chatForm");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
+const chatContainer = document.getElementById("chatContainer");
+const launcher = document.getElementById("launcher");
+const minimizeBtn = document.getElementById("minimizeBtn");
+
+// Minimize / launcher behavior
+function openChat() {
+    chatContainer.classList.remove("hidden");
+    launcher.classList.remove("visible");
+    setTimeout(() => chatInput?.focus(), 250);
+}
+
+function minimizeChat() {
+    chatContainer.classList.add("hidden");
+    launcher.classList.add("visible");
+    // Optional: stop mic when minimized so it doesn't keep listening
+    if (state.isRecording) stopListening();
+}
+
+if (minimizeBtn) minimizeBtn.addEventListener("click", minimizeChat);
+if (launcher)    launcher.addEventListener("click", openChat);
 
 // ============================================================
 // UI helpers
