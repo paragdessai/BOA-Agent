@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Agent — Copilot Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Azure Speech SDK (with fallback) -->
+    <script>
+        window.__sdkLoaded = false;
+        function __onSdkLoad() { window.__sdkLoaded = true; }
+        function __onSdkError(src) {
+            console.error("Failed to load Speech SDK from", src);
+            // Try fallback CDN
+            if (src.indexOf("unpkg") === -1) {
+                var s = document.createElement("script");
+                s.src = "https://unpkg.com/microsoft-cognitiveservices-speech-sdk@1.40.0/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle-min.js";
+                s.onload = __onSdkLoad;
+                s.onerror = function () { __onSdkError(s.src); };
+                document.head.appendChild(s);
+            }
+        }
+    </script>
+    <script
+        src="https://aka.ms/csspeech/jsbrowserpackageraw"
+        onload="__onSdkLoad()"
+        onerror="__onSdkError(this.src)"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="avatar-wrap">
+                <div id="avatar" class="avatar">
+                    <!-- Friendly robot face SVG -->
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <!-- Head -->
+                        <rect x="18" y="22" width="64" height="58" rx="14" fill="#fff"/>
+                        <!-- Antenna -->
+                        <line x1="50" y1="22" x2="50" y2="10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="50" cy="8" r="4" fill="#ffd166"/>
+                        <!-- Eyes -->
+                        <circle class="eye left" cx="38" cy="45" r="6" fill="#2b2d42"/>
+                        <circle class="eye right" cx="62" cy="45" r="6" fill="#2b2d42"/>
+                        <circle cx="40" cy="43" r="1.8" fill="#fff"/>
+                        <circle cx="64" cy="43" r="1.8" fill="#fff"/>
+                        <!-- Mouth (animated) -->
+                        <rect id="mouth" class="mouth" x="38" y="60" width="24" height="6" rx="3" fill="#2b2d42"/>
+                        <!-- Cheeks -->
+                        <circle cx="28" cy="58" r="3" fill="#ff8fa3" opacity="0.6"/>
+                        <circle cx="72" cy="58" r="3" fill="#ff8fa3" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="header-info">
+                <h1>Aria</h1>
+                <span class="subtitle">Your voice assistant</span>
+            </div>
+            <span id="status" class="status idle">Idle</span>
+        </header>
+
+        <div id="transcript" class="transcript">
+            <div class="message bot">
+                <div class="bubble">Hi! I'm Aria 👋 Click the microphone and ask me anything.</div>
+            </div>
+        </div>
+
+        <footer class="chat-footer">
+            <form id="chatForm" class="chat-form">
+                <input
+                    id="chatInput"
+                    type="text"
+                    class="chat-input"
+                    placeholder="Type a message…"
+                    autocomplete="off"
+                    disabled />
+                <button id="sendBtn" type="submit" class="send-btn" title="Send" disabled>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </form>
+            <button id="micBtn" class="mic-btn" title="Click to talk" disabled>
+                <!-- Mic icon (SVG) -->
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                    <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
+                    <path d="M19 11a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V21H8a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2h-3v-3.08A7 7 0 0 0 19 11z"/>
+                </svg>
+            </button>
+            <button id="endBtn" class="end-btn" title="End conversation" disabled>End</button>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
