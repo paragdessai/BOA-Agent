@@ -55,11 +55,18 @@ function minimizeChat() {
 if (minimizeBtn) minimizeBtn.addEventListener("click", minimizeChat);
 if (launcher)    launcher.addEventListener("click", openChat);
 
-// Suggestion cards — click to send pre-built questions
-document.querySelectorAll(".suggestion-card").forEach(card => {
+// Quick-action cards on the page canvas—click to open chat & send question
+document.querySelectorAll(".canvas-card, .suggestion-card").forEach(card => {
     card.addEventListener("click", async () => {
         const text = card.getAttribute("data-question");
         if (!text) return;
+
+        // Open the chat panel if minimized
+        openChat();
+
+        // Hide canvas cards once a question is sent
+        const canvas = document.getElementById("canvasSuggestions");
+        if (canvas) canvas.classList.add("hidden");
 
         try {
             if (!state.initialized) await initialize();
@@ -68,12 +75,8 @@ document.querySelectorAll(".suggestion-card").forEach(card => {
         if (state.isSpeaking) stopSpeaking();
         if (state.isRecording) stopListening();
 
-        // Hide the suggestion cards after first use
-        const suggestionsEl = document.getElementById("suggestions");
-        if (suggestionsEl) suggestionsEl.classList.add("hidden");
-
         addMessage(text, "user");
-        state.lastInputMode = "text"; // clicks behave like text — silent reply
+        state.lastInputMode = "text"; // silent reply (text in chat)
         sendToBot(text);
     });
 });

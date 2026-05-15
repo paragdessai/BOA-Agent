@@ -27,6 +27,28 @@
         onerror="__onSdkError(this.src)"></script>
 </head>
 <body>
+    <!-- Quick-action cards on the page canvas -->
+    <div id="canvasSuggestions" class="canvas-suggestions">
+        <h2 class="canvas-suggestions-title">How can Erica help you today?</h2>
+        <div class="canvas-suggestions-grid">
+            <button class="canvas-card" data-question="What is my account balance?">
+                <span class="canvas-card-icon">💰</span>
+                <span class="canvas-card-title">Account Balance</span>
+                <span class="canvas-card-text">What is my account balance?</span>
+            </button>
+            <button class="canvas-card" data-question="Can you show me my last 10 transactions?">
+                <span class="canvas-card-icon">📋</span>
+                <span class="canvas-card-title">Recent Activity</span>
+                <span class="canvas-card-text">Show me my last 10 transactions</span>
+            </button>
+            <button class="canvas-card" data-question="What is my outstanding credit balance?">
+                <span class="canvas-card-icon">💳</span>
+                <span class="canvas-card-title">Credit Balance</span>
+                <span class="canvas-card-text">What is my outstanding credit balance?</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Floating launcher (visible when chat is minimized) -->
     <button id="launcher" class="launcher" title="Chat with Erica 2" aria-label="Open chat">
         <svg viewBox="0 0 100 100" width="100%" height="100%">
@@ -82,20 +104,6 @@
         <div id="transcript" class="transcript">
             <div class="message bot">
                 <div class="bubble">Hi! I'm Erica 2 👋 Click the microphone or type to ask me anything.</div>
-            </div>
-            <div id="suggestions" class="suggestions">
-                <button class="suggestion-card" data-question="What is my account balance?">
-                    <span class="suggestion-icon">💰</span>
-                    <span class="suggestion-text">What is my account balance?</span>
-                </button>
-                <button class="suggestion-card" data-question="Can you show me my last 10 transactions?">
-                    <span class="suggestion-icon">📋</span>
-                    <span class="suggestion-text">Show me my last 10 transactions</span>
-                </button>
-                <button class="suggestion-card" data-question="What is my outstanding credit balance?">
-                    <span class="suggestion-icon">💳</span>
-                    <span class="suggestion-text">What is my outstanding credit balance?</span>
-                </button>
             </div>
         </div>
 
