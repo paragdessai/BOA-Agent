@@ -55,6 +55,29 @@ function minimizeChat() {
 if (minimizeBtn) minimizeBtn.addEventListener("click", minimizeChat);
 if (launcher)    launcher.addEventListener("click", openChat);
 
+// Suggestion cards — click to send pre-built questions
+document.querySelectorAll(".suggestion-card").forEach(card => {
+    card.addEventListener("click", async () => {
+        const text = card.getAttribute("data-question");
+        if (!text) return;
+
+        try {
+            if (!state.initialized) await initialize();
+        } catch { return; }
+
+        if (state.isSpeaking) stopSpeaking();
+        if (state.isRecording) stopListening();
+
+        // Hide the suggestion cards after first use
+        const suggestionsEl = document.getElementById("suggestions");
+        if (suggestionsEl) suggestionsEl.classList.add("hidden");
+
+        addMessage(text, "user");
+        state.lastInputMode = "text"; // clicks behave like text — silent reply
+        sendToBot(text);
+    });
+});
+
 // ============================================================
 // UI helpers
 // ============================================================
