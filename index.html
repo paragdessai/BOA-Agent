@@ -27,24 +27,30 @@
         onerror="__onSdkError(this.src)"></script>
 </head>
 <body>
-    <!-- Quick-action cards on the page canvas -->
+    <!-- Quick-action cards above the chat panel -->
     <div id="canvasSuggestions" class="canvas-suggestions">
-        <h2 class="canvas-suggestions-title">How can Erica help you today?</h2>
+        <h2 class="canvas-suggestions-title">Try asking Erica</h2>
         <div class="canvas-suggestions-grid">
             <button class="canvas-card" data-question="What is my account balance?">
                 <span class="canvas-card-icon">💰</span>
-                <span class="canvas-card-title">Account Balance</span>
-                <span class="canvas-card-text">What is my account balance?</span>
+                <div>
+                    <span class="canvas-card-title">Account Balance</span>
+                    <span class="canvas-card-text">What is my account balance?</span>
+                </div>
             </button>
             <button class="canvas-card" data-question="Can you show me my last 10 transactions?">
                 <span class="canvas-card-icon">📋</span>
-                <span class="canvas-card-title">Recent Activity</span>
-                <span class="canvas-card-text">Show me my last 10 transactions</span>
+                <div>
+                    <span class="canvas-card-title">Recent Activity</span>
+                    <span class="canvas-card-text">Show me my last 10 transactions</span>
+                </div>
             </button>
             <button class="canvas-card" data-question="What is my outstanding credit balance?">
                 <span class="canvas-card-icon">💳</span>
-                <span class="canvas-card-title">Credit Balance</span>
-                <span class="canvas-card-text">What is my outstanding credit balance?</span>
+                <div>
+                    <span class="canvas-card-title">Credit Balance</span>
+                    <span class="canvas-card-text">What is my outstanding credit balance?</span>
+                </div>
             </button>
         </div>
     </div>

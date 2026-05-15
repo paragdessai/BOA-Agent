@@ -64,10 +64,6 @@ document.querySelectorAll(".canvas-card, .suggestion-card").forEach(card => {
         // Open the chat panel if minimized
         openChat();
 
-        // Hide canvas cards once a question is sent
-        const canvas = document.getElementById("canvasSuggestions");
-        if (canvas) canvas.classList.add("hidden");
-
         try {
             if (!state.initialized) await initialize();
         } catch { return; }
