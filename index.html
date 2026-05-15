@@ -27,30 +27,6 @@
         onerror="__onSdkError(this.src)"></script>
 </head>
 <body>
-    <!-- Settings Modal -->
-    <div id="settingsOverlay" class="settings-overlay hidden">
-        <div class="settings-modal">
-            <h2>Erica 2 — Configuration</h2>
-            <p class="settings-note">Your keys are saved in this browser only. They are never sent to any server.</p>
-            <label>
-                Azure Speech Key
-                <input id="cfgSpeechKey" type="password" placeholder="Paste your Speech key here" autocomplete="off" />
-            </label>
-            <label>
-                Azure Speech Region
-                <input id="cfgSpeechRegion" type="text" placeholder="e.g. eastus2" autocomplete="off" />
-            </label>
-            <label>
-                Copilot Studio Direct Line Secret
-                <input id="cfgDlSecret" type="password" placeholder="Paste your Direct Line secret here" autocomplete="off" />
-            </label>
-            <div class="settings-actions">
-                <button id="settingsSave" class="settings-save-btn">Save &amp; Connect</button>
-                <button id="settingsCancel" class="settings-cancel-btn">Cancel</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Floating launcher (visible when chat is minimized) -->
     <button id="launcher" class="launcher" title="Chat with Erica 2" aria-label="Open chat">
         <svg viewBox="0 0 100 100" width="100%" height="100%">
@@ -96,11 +72,6 @@
                 <span class="subtitle">Your voice assistant</span>
             </div>
             <span id="status" class="status idle">Idle</span>
-            <button id="settingsBtn" class="settings-btn" title="Settings" aria-label="Settings">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.02 7.02 0 0 0-1.62-.94l-.36-2.54A.484.484 0 0 0 14 2h-3.84a.484.484 0 0 0-.48.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.476.476 0 0 0-.59.22L3.8 8.48a.47.47 0 0 0 .12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.47.47 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.27.42.48.42h3.84c.24 0 .44-.18.48-.42l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.47.47 0 0 0-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-                </svg>
-            </button>
             <button id="minimizeBtn" class="minimize-btn" title="Minimize" aria-label="Minimize chat">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M5 13h14v-2H5v2z"/>
@@ -140,6 +111,7 @@
         </footer>
     </div>
 
+    <script src="config.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

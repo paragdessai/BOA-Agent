@@ -1,21 +1,12 @@
 /* ============================================================
  * Copilot Studio Voice Agent — Erica 2
- * Keys are stored in browser localStorage (never in code).
- * On first use, the settings modal asks for keys.
+ * Configuration is loaded from config.js (window.ERICA_CONFIG).
  * ============================================================ */
 
-function loadConfig() {
-    return {
-        SPEECH_KEY:                  localStorage.getItem("e2_speech_key")    || "",
-        SPEECH_REGION:               localStorage.getItem("e2_speech_region") || "eastus2",
-        SPEECH_RECOGNITION_LANGUAGE: "en-US",
-        SPEECH_SYNTHESIS_VOICE:      "en-US-AvaMultilingualNeural",
-        DIRECT_LINE_SECRET:          localStorage.getItem("e2_dl_secret")     || "",
-        DIRECT_LINE_BASE:            "https://directline.botframework.com/v3/directline"
-    };
+const CONFIG = window.ERICA_CONFIG || {};
+if (!CONFIG.SPEECH_KEY || !CONFIG.DIRECT_LINE_SECRET) {
+    console.error("Missing config. Edit config.js and set SPEECH_KEY and DIRECT_LINE_SECRET.");
 }
-
-let CONFIG = loadConfig();
 
 // ============================================================
 // State
@@ -63,68 +54,6 @@ function minimizeChat() {
 
 if (minimizeBtn) minimizeBtn.addEventListener("click", minimizeChat);
 if (launcher)    launcher.addEventListener("click", openChat);
-
-// ============================================================
-// Settings modal — save keys to localStorage
-// ============================================================
-const settingsOverlay = document.getElementById("settingsOverlay");
-const settingsBtn     = document.getElementById("settingsBtn");
-const settingsSave    = document.getElementById("settingsSave");
-const settingsCancel  = document.getElementById("settingsCancel");
-const cfgSpeechKey    = document.getElementById("cfgSpeechKey");
-const cfgSpeechRegion = document.getElementById("cfgSpeechRegion");
-const cfgDlSecret     = document.getElementById("cfgDlSecret");
-
-function openSettings() {
-    // Pre-fill with existing saved values (masked for passwords)
-    cfgSpeechKey.value    = localStorage.getItem("e2_speech_key")    || "";
-    cfgSpeechRegion.value = localStorage.getItem("e2_speech_region") || "eastus2";
-    cfgDlSecret.value     = localStorage.getItem("e2_dl_secret")     || "";
-    settingsOverlay.classList.remove("hidden");
-}
-
-function closeSettings() {
-    settingsOverlay.classList.add("hidden");
-}
-
-if (settingsBtn)    settingsBtn.addEventListener("click", openSettings);
-if (settingsCancel) settingsCancel.addEventListener("click", closeSettings);
-
-if (settingsSave) {
-    settingsSave.addEventListener("click", () => {
-        const key    = cfgSpeechKey.value.trim();
-        const region = cfgSpeechRegion.value.trim();
-        const secret = cfgDlSecret.value.trim();
-
-        if (!key || !region || !secret) {
-            alert("Please fill in all three fields.");
-            return;
-        }
-
-        localStorage.setItem("e2_speech_key",    key);
-        localStorage.setItem("e2_speech_region", region);
-        localStorage.setItem("e2_dl_secret",     secret);
-
-        // Reload config and reset connection
-        CONFIG = loadConfig();
-        state.initialized = false;
-        state.conversationId = null;
-        try { state.websocket?.close(); } catch {}
-        stopListening();
-        stopSpeaking();
-
-        closeSettings();
-        addMessage("Settings saved! Click the mic or type to start a new conversation.", "bot");
-        setStatus("Ready", "idle");
-    });
-}
-
-// On page load: show settings if keys are missing
-window.addEventListener("DOMContentLoaded", () => {
-    if (!CONFIG.SPEECH_KEY || !CONFIG.DIRECT_LINE_SECRET) {
-        openSettings();
-    }
-});
 
 // ============================================================
 // UI helpers
