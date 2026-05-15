@@ -372,3 +372,123 @@ body::before {
 .end-btn:hover:not(:disabled) {
     background: #f0f0f0;
 }
+
+/* ============================================================
+   Settings modal
+   ============================================================ */
+.settings-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.settings-overlay.hidden {
+    display: none;
+}
+
+.settings-modal {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings-modal h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #2b2d42;
+}
+
+.settings-note {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    background: #f0f4ff;
+    border-left: 3px solid #4361ee;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.settings-modal label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.settings-modal input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.settings-modal input:focus {
+    border-color: #4361ee;
+}
+
+.settings-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.settings-save-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4361ee, #7209b7);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.settings-save-btn:hover { opacity: 0.9; }
+
+.settings-cancel-btn {
+    padding: 10px 16px;
+    background: #f0f0f0;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.settings-cancel-btn:hover { background: #e0e0e0; }
+
+/* Settings gear button in header */
+.settings-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+.settings-btn:hover { background: rgba(255, 255, 255, 0.3); }
